@@ -1,0 +1,20 @@
+DAX Formula 
+
+- (YoY Growth)
+YoY % Growth = 
+VAR CurrentSales = [Total Sales]
+VAR PreviousSales = CALCULATE([Total Sales], DATEADD('Order Date'[Date], -1, YEAR))
+RETURN 
+    DIVIDE(CurrentSales - PreviousSales, PreviousSales)
+
+- Total Sales
+Total Sales = SUM (Sales[Line Total Sales])
+
+- Total Sales (Calculated with SUMX)
+Total Sales SUMX = SUMX(Sales, (Sales[Unit Price] * Sales[Order Quantity]) )
+
+- Cumulative Year-to-Date (YTD) sales 
+YTD Sales = TOTALYTD([Total Sales], 'Order Date'[Order Date])
+
+- Previous Year Total Sales (PY Total Sales)
+PY Total Sales = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Order Date'[Order Date]))
